@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="/css/styles.css">
+        <link rel="icon" href="/img/weather.png">
+        <title>Weather</title>
+    </head>
+    <body>
+<div class="main-content">
+          {{>header}}
+          <form id="login-form">
+    <label for="email">Email:</label>
+    <input type="text"  id="email">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password"  id="password">
+    <br>
+    <button>Submit</button>
+    <h1 id="success-login"></h1>
+    
+    </form>
+          </div>
+          {{>footer}}
+          <script src="/js/login.js"></script>
+           </body>
+</html>
+
+
