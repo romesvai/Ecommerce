@@ -5,6 +5,7 @@ const staticPath = path.join(__dirname,'../public')
 const viewsPath = path.join(__dirname,'../templates/views')
 const partialsPath = path.join(__dirname,'../templates/partials')
 const userRouter = require('../src/routers/userRouter')
+const productRouter = require('../src/routers/productRouter')
 const port = process.env.PORT || 3000
 require('./db/mongoose.js')
 const app = express()
@@ -17,6 +18,7 @@ hbs.registerPartials(partialsPath)
 app.use(express.static(staticPath))
 app.use(express.json())
 app.use(userRouter)
+app.use(productRouter)
 
 app.get('/',(req,res)=>{
     res.render('index',{title: 'Home Page', name: 'Our team'})

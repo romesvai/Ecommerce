@@ -2,11 +2,10 @@ const express = require('express')
 const router = express.Router()
 const auth = require('../middleware/auth')
 const User = require('../models/user')
+const Product = require('../models/product')
 
 router.post('/users',async (req,res)=>{
-    debugger
   const user = new User(req.body)
-  debugger
   try{
   await user.save()
   const token = await user.generateToken()
@@ -87,6 +86,22 @@ router.delete('/users/me',auth,async (req,res)=>{
     }
     catch(e){
         res.status(500).send()
+    }
+})
+
+router.post('/users/buy/:id',auth,async (req,res)=>{
+    try{
+    const product = await Product.findById(req.params.id)
+    if(req.user.balance < product.price){
+        return res.status(403).send({error: 'Insufficient fund'})
+    }
+    req.user.balance = req.user.balance - product.price
+    
+    await req.user.save()
+    res.status(201).send()
+    }
+    catch(e){
+        res.status(400).send()
     }
 })
 

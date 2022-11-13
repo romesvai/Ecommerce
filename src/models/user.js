@@ -45,6 +45,10 @@ const userSchema = mongoose.Schema(
             }
     
         },
+        balance: {
+            type: Number,
+            default: 2000
+        },
         tokens: [
             {
                 token: {
@@ -53,6 +57,9 @@ const userSchema = mongoose.Schema(
                 }
             }
         ]
+    },
+    {
+        timestamps: true
     }
 )
 
