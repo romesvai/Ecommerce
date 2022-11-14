@@ -24,8 +24,8 @@ app.get('/',(req,res)=>{
     res.render('index',{title: 'Home Page', name: 'Our team'})
 })
 
-app.get('/about',(req,res)=>{
-    res.render('about',{title: 'About Page', name:'Our team'})
+app.get('/checkout',(req,res)=>{
+    res.render('checkout',{title: 'About Page', name:'Our team'})
 })
 
 app.get('/login',(req,res)=>{

@@ -21,6 +21,12 @@ loginForm.addEventListener('submit',(e)=>{
                     successMessage.textContent = 'Invalid Login.'
                 }
                 successMessage.textContent = 'Hello ' + data.user.name + 'You are successfully logged in.'
+                var now = new Date();
+                var time = now.getTime();
+                var expireTime = time + 1000*36000;
+                now.setTime(expireTime);
+                document.cookie = `authToken=${data.token};expires=`+now.toUTCString()+';path=/';
+                console.log(document.cookie)
             })
         })
     }})

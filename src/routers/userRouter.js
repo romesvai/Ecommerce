@@ -35,7 +35,7 @@ router.post('/users/logout',auth,async (req,res)=>{
     try{
         req.user.tokens = req.user.tokens.filter((token)=> token.token !== req.token)
         await req.user.save()
-        res.send()
+        res.send({message: 'Successfully logged out'})
     }
     catch(e){
         res.status(400).send()
@@ -91,14 +91,16 @@ router.delete('/users/me',auth,async (req,res)=>{
 
 router.post('/users/buy/:id',auth,async (req,res)=>{
     try{
+        const id = req.params.id
     const product = await Product.findById(req.params.id)
+    debugger
     if(req.user.balance < product.price){
         return res.status(403).send({error: 'Insufficient fund'})
     }
     req.user.balance = req.user.balance - product.price
     
     await req.user.save()
-    res.status(201).send()
+    res.status(201).send({message: 'Successful purchase'})
     }
     catch(e){
         res.status(400).send()

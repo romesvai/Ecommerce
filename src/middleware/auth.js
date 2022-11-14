@@ -13,7 +13,7 @@ const auth = async (req,res,next)=>{
     next()
     }
     catch(e){
-        res.status(401).send('Authentication needed.')
+        res.status(401).send({message: 'Please login first.'})
     }
  
 
