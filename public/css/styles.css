@@ -50,15 +50,17 @@ footer{
 header{
     margin-top: 16px;
     margin-bottom: 48px;
+    background-color: #039fff;
 }
 
 h1{
     font-size: 64px;
     margin-bottom: 16px;
+    color: white;
 }
 
 header a{
-    color:#888888;
+    color: white;
     margin-right: 16px;
     text-decoration: none;
 }

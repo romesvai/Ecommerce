@@ -6,7 +6,7 @@ const viewsPath = path.join(__dirname,'../templates/views')
 const partialsPath = path.join(__dirname,'../templates/partials')
 const userRouter = require('../src/routers/userRouter')
 const productRouter = require('../src/routers/productRouter')
-const port = process.env.PORT || 3000
+const port = process.env.PORT
 require('./db/mongoose.js')
 const app = express()
 
@@ -36,6 +36,10 @@ app.get('/register',(req,res)=>{
     res.render('register',{title: 'Login Page', name:'Our team'})
 })
 
+app.get('/admin',(req,res)=>{
+    res.render('admin',{title: 'Admin Page'})
+})
+
 app.listen(port,()=>{
-    console.log('Server is up')
+    console.log('Server is up on port ' + port)
 })

@@ -1,5 +1,5 @@
 const loginForm = document.querySelector('#login-form')
-const successMessage = document.querySelector('#success-login')
+const loginSuccess = document.querySelector('#success-login')
 
 loginForm.addEventListener('submit',(e)=>{
     e.preventDefault()
@@ -18,9 +18,9 @@ loginForm.addEventListener('submit',(e)=>{
         }).then((response)=>{
             response.json().then((data)=>{
                 if(!data.user){
-                    successMessage.textContent = 'Invalid Login.'
+                    loginSuccess.textContent = 'Invalid Login.'
                 }
-                successMessage.textContent = 'Hello ' + data.user.name + 'You are successfully logged in.'
+                loginSuccess.textContent = 'Hello ' + data.user.name + 'You are successfully logged in.'
                 var now = new Date();
                 var time = now.getTime();
                 var expireTime = time + 1000*36000;

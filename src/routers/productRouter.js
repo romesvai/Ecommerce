@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const auth = require('../middleware/auth')
+const admin = require('../middleware/admin')
 const Product = require('../models/product')
 const sharp = require('sharp')
 const multer = require('multer')
@@ -13,17 +13,13 @@ const upload = multer({
         cb(undefined,true)
     }
 })
-router.post('/products/:id/image',upload.single('image'),async (req,res)=>{
+router.post('/products/:id/image',admin,upload.single('image'),async (req,res)=>{
     try{
    const product = await Product.findById(req.params.id)
-   debugger
    const buffer = await sharp(req.file.buffer).resize({width: 300,height:300}).png().toBuffer()
-   debugger
    product.image = buffer
-   debugger
    await product.save()
-   debugger
-   res.send()
+   res.send({message: 'Successful.'})
     }
     catch(e){
     res.status(500).send()
@@ -32,7 +28,7 @@ router.post('/products/:id/image',upload.single('image'),async (req,res)=>{
 },(error,req,res,next)=>{
     res.status(400).send({error: error.message})
 })
-router.post('/products',async (req,res)=>{
+router.post('/products',admin,async (req,res)=>{
     const product = new Product(req.body)
     try{
     await product.save()
