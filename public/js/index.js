@@ -83,7 +83,7 @@ function showProduct(product){
   productPrice.textContent = product.price
 
   const productImage = document.createElement('img')
-  productImage.src = `http://localhost:3000/products/${product._id}/image`
+  productImage.src = `products/${product._id}/image`
 
   const productBuy = document.createElement('button')
   productBuy.id = 'product-buy'
