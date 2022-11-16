@@ -1,6 +1,7 @@
 let productList
 let productDiv
 let modal
+let userDetails
 function getUser(){
     if(document.cookie){
         fetch('users/me',{
@@ -14,9 +15,11 @@ function getUser(){
                 if(data.error){
                     return emptyMessage.textContent = 'Something went wrong. Please login.'
                 }
-                const userDetails = document.querySelector('#user-details')
-                const user = document.querySelector('#user')
-                const balance = document.querySelector('#balance')
+                userDetails = document.querySelector('#user-details')
+                const user = document.createElement('p')
+                user.id = 'user'
+                const balance = document.createElement('p')
+                balance.id = 'balance'
                 user.textContent = 'User: ' + data.name
                 balance.textContent = 'Balance: ' + data.balance
                 const logOutButton = document.createElement('button')
@@ -38,7 +41,10 @@ function getUser(){
                         })
                     })
                 })
+                userDetails.appendChild(user)
+                userDetails.appendChild(balance)
                 userDetails.appendChild(logOutButton)
+                
             })
         })
     }
@@ -133,6 +139,11 @@ function getAuthToken() {
             }
         }).then((response)=>{
             response.json().then((data)=>{
+                userDetails = document.querySelector('#user-details')
+                while (userDetails.firstChild) {
+                    userDetails.removeChild(userDetails.lastChild);
+                  }
+                  getUser()
                 while (modal.firstChild) {
                     modal.removeChild(modal.lastChild);
                   }
@@ -161,7 +172,7 @@ function getAuthToken() {
                 
                 modal.append(modalSuccess)
                 modal.append(modalConfirmAction)
-                
+    
 
             }).catch((e)=>{
                 console.log(e)
@@ -195,7 +206,8 @@ function getAuthToken() {
     modalConfirmAction.textContent = 'Confirm';
     modalConfirmAction.className = 'btn';
     modalConfirmAction.addEventListener('click', ()=>{
-      buyProduct(product)
+        buyProduct(product)
+      
     });
   
     modal.append(modalText);
