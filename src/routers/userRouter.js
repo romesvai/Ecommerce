@@ -107,4 +107,47 @@ router.post('/users/buy/:id',auth,async (req,res)=>{
     }
 })
 
+router.get('/users/me/products',auth,async (req,res)=>{
+    try{
+        let productIds= []
+     req.user.cart.forEach((cartItem)=>{
+       productIds.push(cartItem.product)
+    })
+    const products = await Product.find({ '_id': { $in: productIds } });
+    res.send(products)
+    }
+    catch(e){
+        res.status(500).send()
+    }
+
+})
+
+router.post('/users/me/addToCart/:id',auth,async (req,res)=>{
+    try{
+        const product = await Product.findById(req.params.id)
+        if(!product){
+            return res.status(404).send({error: 'Not Found'})
+        }
+        console.log(req.user)
+        req.user.cart = req.user.cart.concat({product})
+        console.log(req.user)
+        await req.user.save()
+        res.status(201).send({message: 'Successfully added to cart'})
+    }
+    catch(e){
+        res.status(500).send({message: 'Server not working properly'})
+    }
+})
+
+router.post('/users/me/clearCart',auth, async (req,res)=>{
+    req.user.cart = []
+    try{
+        await req.user.save()
+        res.send({message: 'Cart Cleared Succesfully'})
+    }
+    catch(e){
+        res.status(500).send({error: 'Something went wrong.'})
+    }
+})
+
 module.exports = router

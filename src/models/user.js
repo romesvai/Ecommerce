@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Product = require('./product')
 
 const userSchema = mongoose.Schema(
     {
@@ -54,6 +55,14 @@ const userSchema = mongoose.Schema(
                 token: {
                     type: String,
                     required: true
+                }
+            }
+        ],
+        cart: [
+            {
+                product: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: 'Product'
                 }
             }
         ]

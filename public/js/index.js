@@ -41,8 +41,20 @@ function getUser(){
                         })
                     })
                 })
+                
                 userDetails.appendChild(user)
                 userDetails.appendChild(balance)
+                if(data.cart.length > 0){
+                    const cart = document.createElement('button')
+                    cart.textContent = 'Checkout Cart'
+                    cart.addEventListener('click',(e)=>{
+                        window.location='/checkout'
+                    })
+                    const noOfItems = document.createElement('h5')
+                    noOfItems.textContent = data.cart.length
+                    userDetails.append(cart)
+                    userDetails.append(noOfItems)
+                }
                 userDetails.appendChild(logOutButton)
                 
             })
@@ -54,11 +66,11 @@ getUser()
 
 
 function closeModalHandler() {
-  modal.remove();
-  modal = null;
+  modal.remove()
+  modal = null
 
-  backdrop.remove();
-  backdrop = null;
+  backdrop.remove()
+  backdrop = null
 }
 const emptyMessage = document.querySelector('#empty-message')
 const body = document.querySelector('.main-content')
@@ -97,13 +109,16 @@ function showProduct(product){
   
   
   productBuy.addEventListener('click',()=>{
-    showModalHandler(product)
+    showModalHandler(product,false)
   })
     
 
   const productAddToCart = document.createElement('button')
   productAddToCart.id = 'product-add-to-cart'
   productAddToCart.textContent = 'Add to cart'
+  productAddToCart.addEventListener('click',()=>{
+    showModalHandler(product,true)
+  })
 
   
   productDiv.append(productImage)
@@ -123,12 +138,68 @@ productDiv = null
 }
 
 function getAuthToken() {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; authToken=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
+    const value = `; ${document.cookie}`
+    const parts = value.split(`; authToken=`)
+    if (parts.length === 2) return parts.pop().split(';').shift()
   }
 
-  function showModalHandler(product) {
+  function showModalHandler(product,addingCart) {
+    if (modal) {
+        return
+      }
+    
+      modal = document.createElement('div')
+      modal.id = 'modal'
+      modal.className = 'modal'
+    
+      const modalText = document.createElement('p')
+      if(addingCart){
+        modalText.textContent = 'Are you sure you want to add this item to cart?'
+      }
+      else{
+        modalText.textContent = 'Are you sure you want to buy?'
+      }
+  
+      const modalImage = document.createElement('img')
+      modalImage.src = "products/"+product._id+"/image"
+      modalImage.width = 100
+      modalImage.height = 100
+  
+      const modalPrice = document.createElement('p')
+      modalPrice.textContent = product.price
+    
+      const modalCancelAction = document.createElement('button')
+      modalCancelAction.textContent = 'Cancel'
+      modalCancelAction.className = 'btn btn--alt'
+      modalCancelAction.addEventListener('click', closeModalHandler)
+    
+      const modalConfirmAction = document.createElement('button')
+      modalConfirmAction.textContent = 'Confirm'
+      modalConfirmAction.className = 'btn'
+      modalConfirmAction.addEventListener('click', ()=>{
+          if(addingCart){
+              addToCart(product)
+          }
+          else{
+          buyProduct(product)
+          }
+        
+      })
+    
+      modal.append(modalText)
+      modal.append(modalImage)
+      modal.append(modalPrice)
+      modal.append(modalCancelAction)
+      modal.append(modalConfirmAction)
+    
+      document.body.append(modal)
+    
+      backdrop = document.createElement('div')
+      backdrop.className = 'backdrop'
+    
+      backdrop.addEventListener('click', closeModalHandler)
+    
+      document.body.append(backdrop)
     function buyProduct(product){
         fetch(`/users/buy/${product._id}`, 
         {
@@ -141,20 +212,20 @@ function getAuthToken() {
             response.json().then((data)=>{
                 userDetails = document.querySelector('#user-details')
                 while (userDetails.firstChild) {
-                    userDetails.removeChild(userDetails.lastChild);
+                    userDetails.removeChild(userDetails.lastChild)
                   }
                   getUser()
                 while (modal.firstChild) {
-                    modal.removeChild(modal.lastChild);
+                    modal.removeChild(modal.lastChild)
                   }
-                if(data.message){
+                if(data.error){
                     const modalFailure = document.createElement('p')
                     modalFailure.id = 'transaction-success'
                     modalFailure.textContent = data.message
 
-                    const modalConfirmAction = document.createElement('button');
-                    modalConfirmAction.textContent = 'Ok';
-                    modalConfirmAction.className = 'btn';
+                    const modalConfirmAction = document.createElement('button')
+                    modalConfirmAction.textContent = 'Ok'
+                    modalConfirmAction.className = 'btn'
                     modalConfirmAction.addEventListener('click',closeModalHandler)
                     modal.append(modalFailure)
                     modal.append(modalConfirmAction)
@@ -165,63 +236,60 @@ function getAuthToken() {
                 modalSuccess.id = 'transaction-success'
                 modalSuccess.textContent = data.message
 
-                const modalConfirmAction = document.createElement('button');
-                modalConfirmAction.textContent = 'Ok';
-                modalConfirmAction.className = 'btn';
+                const modalConfirmAction = document.createElement('button')
+                modalConfirmAction.textContent = 'Ok'
+                modalConfirmAction.className = 'btn'
                 modalConfirmAction.addEventListener('click',closeModalHandler)
                 
                 modal.append(modalSuccess)
                 modal.append(modalConfirmAction)
-    
-
             }).catch((e)=>{
                 console.log(e)
             })
       })
       }
-    if (modal) {
-      return;
-    }
-  
-    modal = document.createElement('div');
-    modal.className = 'modal';
-  
-    const modalText = document.createElement('p');
-    modalText.textContent = 'Are you sure?';
+      async function addToCart(product){
+         const response = await fetch('/users/me/addToCart/'+ product._id,{
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json',
+               'Authorization' : 'Bearer ' + getAuthToken()
+            }
+        })
+                 const data = await  response.json()
+                userDetails = document.querySelector('#user-details')
+                while (userDetails.firstChild) {
+                    userDetails.removeChild(userDetails.lastChild)
+                  }
+                  getUser()
+                while (modal.firstChild) {
+                    modal.removeChild(modal.lastChild)
+                  }
+                if(data.error){
+                    const modalFailure = document.createElement('p')
+                    modalFailure.id = 'transaction-success'
+                    modalFailure.textContent = data.message
 
-    const modalImage = document.createElement('img');
-    modalImage.src = "products/"+product._id+"/image"
-    modalImage.width = 100
-    modalImage.height = 100
+                    const modalConfirmAction = document.createElement('button')
+                    modalConfirmAction.textContent = 'Ok'
+                    modalConfirmAction.className = 'btn'
+                    modalConfirmAction.addEventListener('click',closeModalHandler)
+                    modal.append(modalFailure)
+                    modal.append(modalConfirmAction)
+                    return 
+                }
+                
+                const modalSuccess = document.createElement('p')
+                modalSuccess.id = 'transaction-success'
+                modalSuccess.textContent = data.message
 
-    const modalPrice = document.createElement('p');
-    modalPrice.textContent = product.price;
-  
-    const modalCancelAction = document.createElement('button');
-    modalCancelAction.textContent = 'Cancel';
-    modalCancelAction.className = 'btn btn--alt';
-    modalCancelAction.addEventListener('click', closeModalHandler);
-  
-    const modalConfirmAction = document.createElement('button');
-    modalConfirmAction.textContent = 'Confirm';
-    modalConfirmAction.className = 'btn';
-    modalConfirmAction.addEventListener('click', ()=>{
-        buyProduct(product)
-      
-    });
-  
-    modal.append(modalText);
-    modal.append(modalImage)
-    modal.append(modalPrice)
-    modal.append(modalCancelAction);
-    modal.append(modalConfirmAction);
-  
-    document.body.append(modal);
-  
-    backdrop = document.createElement('div');
-    backdrop.className = 'backdrop';
-  
-    backdrop.addEventListener('click', closeModalHandler);
-  
-    document.body.append(backdrop);
+                const modalConfirmAction = document.createElement('button')
+                modalConfirmAction.textContent = 'Ok'
+                modalConfirmAction.className = 'btn'
+                modalConfirmAction.addEventListener('click',closeModalHandler)
+                
+                modal.append(modalSuccess)
+                modal.append(modalConfirmAction)
+            }
+    
   }
