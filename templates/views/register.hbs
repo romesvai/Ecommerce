@@ -1,31 +1,41 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Ecommerce</title>
-    </head>
+    {{>head}}
     <body>
-<div class="main-content">
-          {{>header}}
-<form id="register-form">
-    <label for="name">Name:</label>
-    <input type="text" id="name">
-    <br>
-    <label for="email">Email:</label>
-    <input type="text"  id="email">
-    <br>
-    <label for="password">Password:</label>
-    <input type="password"  id="password">
-    <br>
-    <label for="age">Age:</label>
-    <input type="age"  id="age">
-    <br>
-    <button>Submit</button>
-    <h2 id="success"></h2>
-    <script src="/js/register.js"></script>
-</form>
-  </div>
-          {{>footer}}
-          <script src="/js/login.js"></script>
-           </body>
+        {{>header}}
+        <div class="main-content p-5 container d-flex justify-content-center align-items-center">
+            <form class="bg-light p-5" id="register-form">
+                <div>
+                <h2>Register</h2>
+                </div>
+                <div class=" my-3">
+                    <label class="form-label" for="name" hidden>Name:</label>
+                    <input class="form-control form-control-lg col" type="text" id="name" placeholder="Name*">
+                    <small id="nameError" class="form-text text-muted"></small>
+                </div>
+                <div class=" my-3">
+                    <label class="form-label" for="email" hidden>Email:</label>
+                    <input class="form-control form-control-lg col" type="text"  id="email" placeholder="Email*">
+                    <small id="emailError" class="form-text text-muted"></small>
+                </div>
+                <div class=" my-3">
+                    <label class="form-label" for="password" hidden>Password:</label>
+                    <input class="form-control form-control-lg col" type="password"  id="password" placeholder="Password*">
+                    <small id="passwordError" class="form-text text-muted"></small>
+                </div>
+                <div class=" my-3">
+                    <label class="form-label" for="age" hidden>Age:</label>
+                    <input class="form-control form-control-lg col" type="age"  id="age" placeholder="Age*">
+                    <small id="ageError" class="form-text text-muted"></small>
+                </div>
+                <div>
+                
+                <button class=" btn btn-primary my-3">Submit</button>
+                </div>
+                <h2 id="success"></h2>
+            </form>
+        </div>
+        {{>script}}
+        <script src="/js/register.js"></script>
+    </body>
 </html>
