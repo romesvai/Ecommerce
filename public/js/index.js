@@ -18,11 +18,14 @@ function getUser(){
                 userDetails = document.querySelector('#user-details')
                 const user = document.createElement('p')
                 user.id = 'user'
+                user.className = 'nav-item'
                 const balance = document.createElement('p')
                 balance.id = 'balance'
-                user.textContent = 'User: ' + data.name
+                balance.className = 'nav-item'
+                user.textContent = 'Hello, ' + data.name
                 balance.textContent = 'Balance: ' + data.balance
                 const logOutButton = document.createElement('button')
+                logOutButton.className = "btn btn-primary"
                 logOutButton.textContent = 'Log Out'
                 logOutButton.addEventListener('click',()=>{
                     fetch('users/logout',{

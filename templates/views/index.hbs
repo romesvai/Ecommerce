@@ -1,18 +1,53 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Ecommerce</title>
-    </head>
-    <body>
-        <div class="main-content">
-          {{>header}}
-          <p id="empty-message"></p>
-          <script src="/js/index.js">
+{{>head}}
 
-        </script>
+<body>
+  {{>header}}
+  <div class="main-content">
+    <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+          aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      </div>
+
+      <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="3000">
+          <div class="overlay-image" style="background-image:url(/img/md-mahdi-lQpFRPrepQ8-unsplash.jpg)"></div>
+          <div class="container hero-container">
+            <h1 class="hero-header">One stop shop for your all sporting needs</h1>
+            <a href="#products" class="btn btn-lg btn-primary">Shop Now</a>
           </div>
-          {{>footer}}
-          
-    </body>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <div class="overlay-image" style="background-image:url(/img/pexels-saifcom-7438729.jpg)"></div>
+          <div class="container hero-container">
+            <h1 class="hero-header">Find best deals and offers</h1>
+            <a href="#products" class="btn btn-lg btn-primary">Shop Now</a>
+          </div>
+        </div>
+        <div class="carousel-item" data-bs-interval="3000">
+          <div class="overlay-image" style="background-image:url(/img/sabri-tuzcu-dVhM3o9BVeg-unsplash.jpg)"></div>
+          <div class="container hero-container">
+                <h1 class="hero-header">Products of different brands</h1>
+                <a href="#products" class="btn btn-lg btn-primary">Shop Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section id = "products">
+      <h1 class="text-center">Products</h1>
+    <div class="container product-container">
+      <p id="empty-message"></p>
+      </div>
+    </div>
+    </section>
+  </div>
+  {{>footer}}
+  <script src="/js/index.js"></script>
+  {{>script}}
+</body>
+
 </html>

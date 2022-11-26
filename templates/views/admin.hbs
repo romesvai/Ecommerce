@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Ecommerce Admin</title>
-    </head>
+    {{>head}}
     <body>
-        <div class="main-content">
-          {{>header}}
+        {{>header}}
+        <div class="main-content container">
           <h1>Add a product</h1>
-          <form id="product-form">
-          <label for="name">Name:</label>
-          <input type="text"  id="name">
+          <form class="bg-light p-5" id="product-form">
+          <div class="my-3">
+          <label class="form-label" for="name">Name:</label>
+          <input class="form-control form-control-lg" type="text"  id="name">
+          </div>
+          <div class="my-3">
+          <label class="form-label" for="price">Price:</label>
+          <input class="form-control form-control-lg" type="number"  id="price">
+          </div>
+          <div class="my-3">
+          <label class="form-label" for="image">Image: </label>
           <br>
-          <label for="price">Price:</label>
-          <input type="number"  id="price">
-          <br>
-          <label for="image">Image: </label>
           <input type="file"  id="file" name="image">
-          <button>Submit</button>
+          </div>
+          <button class="btn btn-primary">Submit</button>
           <h2 id="success-save"></h2>
     
            </form>
-          <script src="/js/admin.js">
-
-        </script>
           </div>
-          {{>footer}}
-          
+          <script src="/js/admin.js"></script>
+          {{>script}}
     </body>
 </html>

@@ -23,12 +23,14 @@ function getProducts(){
             const body = document.querySelector('.main-content')
                 const checkOutButton = document.createElement('button')
                 checkOutButton.textContent = 'Checkout items'
+                checkOutButton.className = "btn btn-success"
                 checkOutButton.addEventListener('click',()=>{
                     showModalHandler(data)
                 })
                 const clearButton = document.createElement('button')
                 clearButton.id = 'clear'
                 clearButton.textContent = 'Clear items'
+                clearButton.className = "btn btn-danger"
                 clearButton.addEventListener('click',()=>{
                     fetch('/users/me/clearCart',{
                         method: 'POST',

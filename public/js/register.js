@@ -1,7 +1,10 @@
 const registerForm = document.querySelector('#register-form')
 const successMessage = document.querySelector('#success')
 
-
+let nameError = document.querySelector("#nameError")
+let emailError = document.querySelector("#emailError")
+let passwordError = document.querySelector("#passwordError")
+let ageError = document.querySelector("#ageError")
 
 registerForm.addEventListener('submit',(e)=>{
     e.preventDefault()
@@ -22,9 +25,25 @@ registerForm.addEventListener('submit',(e)=>{
         }).then((response)=>{
             response.json().then((data)=>{
                 if(!data.user){
+                    if(data.errors.hasOwnProperty('name')){
+                        nameError.textContent = data.errors.name.message
+                    }
+                    if(data.errors.hasOwnProperty('email')){
+                        emailError.textContent = data.errors.email.message
+                    }
+                    if(data.errors.hasOwnProperty('password')){
+                        passwordError.textContent = data.errors.password.message
+                    }
+                    if(data.errors.hasOwnProperty('age')){
+                        ageError.textContent = data.errors.age.message
+                    }
                     successMessage.textContent = 'Invalid Registration.'
+                    successMessage.className = "alert alert-danger"
                 }
-                successMessage.textContent = 'Hello ' + data.user.name + 'You are successfully registered.'
+                else{
+                    successMessage.textContent = 'Hello ' + data.user.name + 'You are successfully registered.'
+                    successMessage.className = "alert alert-success"
+                }
             })
         })
     }})
