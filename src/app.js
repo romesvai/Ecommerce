@@ -6,8 +6,10 @@ const viewsPath = path.join(__dirname,'../templates/views')
 const partialsPath = path.join(__dirname,'../templates/partials')
 const userRouter = require('../src/routers/userRouter')
 const productRouter = require('../src/routers/productRouter')
+const paymentRouter = require('../src/routers/paymentRouter')
 const port = process.env.PORT
 require('./db/mongoose.js')
+require('./payment/payment')
 const app = express()
 
 app.set('view engine','hbs')
@@ -19,6 +21,7 @@ app.use(express.static(staticPath))
 app.use(express.json())
 app.use(userRouter)
 app.use(productRouter)
+app.use(paymentRouter)
 
 app.get('/',(req,res)=>{
     res.render('index',{title: 'Home Page', name: 'Our team'})
@@ -38,6 +41,12 @@ app.get('/register',(req,res)=>{
 
 app.get('/admin',(req,res)=>{
     res.render('admin',{title: 'Admin Page'})
+})
+app.get('/payment',(req,res)=>{
+    res.render('payment',{title: 'Payment'})
+})
+app.get('/payment-success',(req,res)=>{
+    res.render('paymentSuccess',{title: 'Payment'})
 })
 
 app.listen(port,()=>{
