@@ -21,11 +21,7 @@ function getUser(){
                 const user = document.createElement('p')
                 user.id = 'user'
                 user.className = 'nav-item'
-                const balance = document.createElement('p')
-                balance.id = 'balance'
-                balance.className = 'nav-item'
                 user.textContent = 'Hello, ' + data.name
-                balance.textContent = 'Balance: ' + data.balance
                 const logOutButton = document.createElement('button')
                 logOutButton.className = "btn btn-primary"
                 logOutButton.textContent = 'Log Out'
@@ -48,7 +44,6 @@ function getUser(){
                 })
                 
                 userDetails.appendChild(user)
-                userDetails.appendChild(balance)
                 if(data.cart.length > 0){
                     const cart = document.createElement('button')
                     cart.textContent = 'Checkout Cart'
