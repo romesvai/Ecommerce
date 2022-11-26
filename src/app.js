@@ -28,7 +28,7 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/checkout',(req,res)=>{
-    res.render('checkout',{title: 'About Page', name:'Our team'})
+    res.render('checkout',{title: 'Checkout Page', name:'Our team'})
 })
 
 app.get('/login',(req,res)=>{
@@ -36,7 +36,7 @@ app.get('/login',(req,res)=>{
 })
 
 app.get('/register',(req,res)=>{
-    res.render('register',{title: 'Login Page', name:'Our team'})
+    res.render('register',{title: 'Register Page', name:'Our team'})
 })
 
 app.get('/admin',(req,res)=>{
@@ -47,6 +47,10 @@ app.get('/payment',(req,res)=>{
 })
 app.get('/payment-success',(req,res)=>{
     res.render('paymentSuccess',{title: 'Payment'})
+})
+
+app.get('/about', (req, res)=>{
+    res.render('about',{title: 'About Page', name:'Our team'})
 })
 
 app.listen(port,()=>{

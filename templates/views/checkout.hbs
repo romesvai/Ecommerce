@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Ecommerce</title>
-    </head>
+  {{>head}}
     <body>
-        <div class="main-content">
-          {{>header}}
+      <style>
+        #clear{
+          margin-right: 2rem;
+        }
+      </style>
+      {{>header}}
+        <div class="main-content container">
           <p id="empty-message"></p>
-          <script src="/js/checkout.js">
-
-        </script>
-          </div>
-          {{>footer}}
-          
+        </div>
+          {{>script}}
+          <script src="/js/checkout.js"></script>
     </body>
 </html>

@@ -5,7 +5,8 @@ body{
     color: #333333;
     font-family: Arial, Helvetica, sans-serif;
     margin: 0 auto;
-    padding: 0 16px;
+    /* padding: 0 16px; */
+    padding: 0;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -24,7 +25,7 @@ body{
     height:250px;
 }
 p{
-    color: red;
+    /* color: red; */
     font-weight: 900;
     font-size: 30;
 }
@@ -36,8 +37,8 @@ p{
 #name{
     color: #888888;
     font-weight: 900;
-    font-size: 30;
-    padding-left: 244px;
+    /* font-size: 30;
+    padding-left: 244px; */
 }
 
 footer{
@@ -171,3 +172,32 @@ margin-left: 40px;
 
 
 
+/* for carousel and index page */
+.carousel-item {
+      height: 32rem;
+      background: #000;
+      color: white;
+      position: relative;
+    }
+
+    .hero-container {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding-bottom: 50px;
+    }
+
+    .overlay-image {
+      background-position: center;
+      background-size: cover;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      opacity: 0.5;
+    }
+    #products{
+      padding: 5rem 0;
+    }
