@@ -28,7 +28,7 @@ app.get('/',(req,res)=>{
 })
 
 app.get('/checkout',(req,res)=>{
-    res.render('checkout',{title: 'About Page', name:'Our team'})
+    res.render('checkout',{title: 'Checkout Page', name:'Our team'})
 })
 
 app.get('/login',(req,res)=>{

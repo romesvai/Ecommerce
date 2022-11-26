@@ -39,6 +39,24 @@ router.post('/products',admin,async (req,res)=>{
     }
 })
 
+router.post('/products/remove/:id',admin,async (req,res)=>{
+    console.log('I am here')
+    const id = req.params.id
+    console.log(id)
+    try{
+        const product = await Product.findByIdAndDelete(id)
+        console.log(product)
+        if(!product){
+            res.status(404).send({error: 'Not Found'})
+        }
+        res.send({message: 'Successfully Deleted'})
+
+    }
+    catch(e){
+        res.status(500).send()
+    }
+})
+
 router.get('/products',async (req,res)=>{
     try{
     const products = await Product.find({})
