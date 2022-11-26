@@ -2,6 +2,7 @@ let productList
 let productDiv
 let modal
 let userDetails
+const modalBody = document.querySelector('body')
 function getUser(){
     if(document.cookie){
         fetch('users/me',{
@@ -215,7 +216,7 @@ function getAuthToken() {
       modal.append(modalCancelAction)
       modal.append(modalConfirmAction)
     
-      document.body.append(modal)
+      modalBody.append(modal)
     
       backdrop = document.createElement('div')
       backdrop.className = 'backdrop'
