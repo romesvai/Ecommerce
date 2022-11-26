@@ -1,6 +1,7 @@
 let productList = []
 let productDiv
 let modal
+let price = 0
 const emptyMessage = document.querySelector('#empty-message')
 function getProducts(){
     console.log('Getting Products.')
@@ -114,7 +115,7 @@ function showModalHandler(products) {
     modalText.textContent = 'Are you sure you want to checkout these items?';
 
     const modalPrice = document.createElement('p');
-    let price = 0
+    
     products.forEach((product)=>{
         price += product.price
     })
@@ -129,7 +130,11 @@ function showModalHandler(products) {
     modalConfirmAction.textContent = 'Confirm';
     modalConfirmAction.className = 'btn';
     modalConfirmAction.addEventListener('click', ()=>{
-            buyProducts(products)
+           // buyProducts(products)
+           var productData = price
+           sessionStorage.productPrice = productData
+           sessionStorage.isFromCart = true
+           window.location.href = "/payment"
     });
   
     modal.append(modalText);

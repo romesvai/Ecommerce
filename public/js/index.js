@@ -95,9 +95,11 @@ function showProduct(product){
   productDiv.className = 'product'
   
   const productName = document.createElement('h3')
+  productName.className = 'productName'
   productName.textContent = product.name
 
   const productPrice = document.createElement('p')
+  productPrice.className = 'product-price'
   productPrice.textContent = product.price
 
   const productImage = document.createElement('img')
@@ -181,7 +183,28 @@ function getAuthToken() {
               addToCart(product)
           }
           else{
-          buyProduct(product)
+            
+            token = getAuthToken()
+            if(!token){
+                while (modal.firstChild) {
+                    modal.removeChild(modal.lastChild)
+                  }
+                const loginFirst = document.createElement('p')
+                loginFirst.textContent = "Please login first"
+                modal.append(loginFirst)
+                const modalConfirmAction = document.createElement('button')
+                    modalConfirmAction.textContent = 'Ok'
+                    modalConfirmAction.className = 'btn'
+                    modalConfirmAction.addEventListener('click',closeModalHandler)
+                    modal.append(modalConfirmAction)
+                    return 
+            }
+            else{
+                var productData = product.price
+            sessionStorage.productPrice = productData
+            window.location.href = "/payment"
+            }
+         // buyProduct(product)
           }
         
       })
@@ -210,6 +233,13 @@ function getAuthToken() {
             }
         }).then((response)=>{
             response.json().then((data)=>{
+                fetch(`/users/me/payment/checkout`,{
+                    method: 'POST',
+                headers: {
+                'Content-Type' : 'application/json',
+               'Authorization' : 'Bearer ' + getAuthToken()
+                }
+                })
                 userDetails = document.querySelector('#user-details')
                 while (userDetails.firstChild) {
                     userDetails.removeChild(userDetails.lastChild)

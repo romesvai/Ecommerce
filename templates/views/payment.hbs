@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+   <head>
+  <meta charset="utf-8">
+  <script src="https://js.braintreegateway.com/web/dropin/1.33.7/js/dropin.min.js"></script>
+</head>
+<body>
+  <form id="payment-form" action="/payment-success">
+    <div id="dropin-container"></div>
+    <input type="submit" />
+  </form>
+
+  <script type="text/javascript">
+  var productPrice = sessionStorage["productPrice"]
+  var isFromCart = sessionStorage["isFromCart"]
+  const form = document.getElementById('payment-form')
+  let braintreeToken
+getBraintreeToken()
+  async function  getBraintreeToken(){
+    const response = await fetch('/users/me/payment/getBraintreeToken',{
+    method: 'GET',
+    headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' + getAuthToken()
+            },
+  })
+  const data = await response.json()
+  braintreeToken = data.token
+  braintree.dropin.create({
+  container: document.getElementById('dropin-container'),
+  authorization: braintreeToken
+}, (error, dropinInstance) => {
+  if (error) console.error(error);
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+
+    dropinInstance.requestPaymentMethod(async (error, payload) => {
+      if (error) console.error(error)
+      if(!payload.nonce){
+        return
+      }
+      payloadNonce = {nonce: payload.nonce,price: productPrice*0.0077}
+      payloadNonceJson = JSON.stringify(payloadNonce)
+      const response = await fetch('/users/me/payment/checkout',{
+        method: 'POST',
+        headers: {
+                'Content-Type' : 'application/json',
+                'Authorization' : 'Bearer ' + getAuthToken()
+            },
+        body: payloadNonceJson
+      })
+      if(response.error){
+         return alert('Something went wrong.')
+      }
+      if(isFromCart){
+         fetch('/users/me/clearCart',{
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization' : 'Bearer ' + getAuthToken()
+                        }
+                    }).then((response)=>{
+                        response.json().then((data)=>{
+                            if(data.error){
+                                return emptyMessage.textContent = data.error
+                            }
+                            window.location.replace('/payment-success')
+                        })
+                    }).catch((e)=>{
+                        console.log(e)
+                    })
+      }
+      else{
+        window.location.replace('/payment-success')
+      }
+     
+    
+    })
+  })
+})
+  }
+  
+function getAuthToken() {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; authToken=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+  }
+  </script>
+</body>
+</html>
