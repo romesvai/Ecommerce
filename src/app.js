@@ -49,10 +49,9 @@ app.get('/payment-success',(req,res)=>{
     res.render('paymentSuccess',{title: 'Payment'})
 })
 
-app.get('/about', (req, res)=>{
-    res.render('about',{title: 'About Page', name:'Our team'})
+app.get('/about',(req,res)=>{
+    res.render('about', {title:'About Page', name:'Our team'})
 })
-
 app.listen(port,()=>{
     console.log('Server is up on port ' + port)
 })

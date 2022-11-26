@@ -1,7 +1,10 @@
 const registerForm = document.querySelector('#register-form')
 const successMessage = document.querySelector('#success')
 
-
+let nameError = document.querySelector("#nameError")
+let emailError = document.querySelector("#emailError")
+let passwordError = document.querySelector("#passwordError")
+let ageError = document.querySelector("#ageError")
 
 registerForm.addEventListener('submit',(e)=>{
     e.preventDefault()
@@ -22,17 +25,17 @@ registerForm.addEventListener('submit',(e)=>{
         }).then((response)=>{
             response.json().then((data)=>{
                 if(!data.user){
-                    let nameError = document.querySelector('#nameError')
-                    let emailError = document.querySelector('#emailError')
-                    let passwordError = document.querySelector('#passwordError')
                     if(data.errors.hasOwnProperty('name')){
-                        nameError.textContent = data.errors.name.message;
+                        nameError.textContent = data.errors.name.message
                     }
                     if(data.errors.hasOwnProperty('email')){
-                        emailError.textContent = data.errors.email.message;
+                        emailError.textContent = data.errors.email.message
                     }
                     if(data.errors.hasOwnProperty('password')){
-                        passwordError.textContent = data.errors.password.message;
+                        passwordError.textContent = data.errors.password.message
+                    }
+                    if(data.errors.hasOwnProperty('age')){
+                        ageError.textContent = data.errors.age.message
                     }
                     successMessage.textContent = 'Invalid Registration.'
                     successMessage.className = "alert alert-danger"

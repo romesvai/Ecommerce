@@ -1,3 +1,4 @@
+const productContainer = document.querySelector(".product-container")
 let productList
 let productDiv
 let modal
@@ -19,11 +20,14 @@ function getUser(){
                 userDetails = document.querySelector('#user-details')
                 const user = document.createElement('p')
                 user.id = 'user'
+                user.className = 'nav-item'
                 const balance = document.createElement('p')
                 balance.id = 'balance'
-                user.textContent = 'User: ' + data.name
+                balance.className = 'nav-item'
+                user.textContent = 'Hello, ' + data.name
                 balance.textContent = 'Balance: ' + data.balance
                 const logOutButton = document.createElement('button')
+                logOutButton.className = "btn btn-primary"
                 logOutButton.textContent = 'Log Out'
                 logOutButton.addEventListener('click',()=>{
                     fetch('users/logout',{
@@ -108,6 +112,7 @@ function showProduct(product){
 
   const productBuy = document.createElement('button')
   productBuy.id = 'product-buy'
+  productBuy.className = 'btn btn-primary'
   productBuy.textContent = 'Buy'
   
   
@@ -118,6 +123,7 @@ function showProduct(product){
 
   const productAddToCart = document.createElement('button')
   productAddToCart.id = 'product-add-to-cart'
+  productAddToCart.className = 'btn btn-success'
   productAddToCart.textContent = 'Add to cart'
   productAddToCart.addEventListener('click',()=>{
     showModalHandler(product,true)
@@ -130,7 +136,7 @@ function showProduct(product){
   productDiv.append(productBuy)
   productDiv.append(productAddToCart)
 
-  body.appendChild(productDiv)
+  productContainer.appendChild(productDiv)
 
 }
 
@@ -153,7 +159,7 @@ function getAuthToken() {
     
       modal = document.createElement('div')
       modal.id = 'modal'
-      modal.className = 'modal'
+      modal.className = 'modalUC'
     
       const modalText = document.createElement('p')
       if(addingCart){
@@ -173,12 +179,12 @@ function getAuthToken() {
     
       const modalCancelAction = document.createElement('button')
       modalCancelAction.textContent = 'Cancel'
-      modalCancelAction.className = 'btn btn--alt'
+      modalCancelAction.className = 'btn btn-danger btn--alt'
       modalCancelAction.addEventListener('click', closeModalHandler)
     
       const modalConfirmAction = document.createElement('button')
       modalConfirmAction.textContent = 'Confirm'
-      modalConfirmAction.className = 'btn'
+      modalConfirmAction.className = 'btn btn-success'
       modalConfirmAction.addEventListener('click', ()=>{
           if(addingCart){
               addToCart(product)
@@ -195,7 +201,7 @@ function getAuthToken() {
                 modal.append(loginFirst)
                 const modalConfirmAction = document.createElement('button')
                     modalConfirmAction.textContent = 'Ok'
-                    modalConfirmAction.className = 'btn'
+                    modalConfirmAction.className = 'btn btn-success'
                     modalConfirmAction.addEventListener('click',closeModalHandler)
                     modal.append(modalConfirmAction)
                     return 
@@ -256,7 +262,7 @@ function getAuthToken() {
 
                     const modalConfirmAction = document.createElement('button')
                     modalConfirmAction.textContent = 'Ok'
-                    modalConfirmAction.className = 'btn'
+                    modalConfirmAction.className = 'btn btn-success'
                     modalConfirmAction.addEventListener('click',closeModalHandler)
                     modal.append(modalFailure)
                     modal.append(modalConfirmAction)
@@ -269,7 +275,7 @@ function getAuthToken() {
 
                 const modalConfirmAction = document.createElement('button')
                 modalConfirmAction.textContent = 'Ok'
-                modalConfirmAction.className = 'btn'
+                modalConfirmAction.className = 'btn btn-success'
                 modalConfirmAction.addEventListener('click',closeModalHandler)
                 
                 modal.append(modalSuccess)
@@ -303,7 +309,7 @@ function getAuthToken() {
 
                     const modalConfirmAction = document.createElement('button')
                     modalConfirmAction.textContent = 'Ok'
-                    modalConfirmAction.className = 'btn'
+                    modalConfirmAction.className = 'btn btn-success'
                     modalConfirmAction.addEventListener('click',closeModalHandler)
                     modal.append(modalFailure)
                     modal.append(modalConfirmAction)

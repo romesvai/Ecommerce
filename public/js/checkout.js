@@ -24,6 +24,7 @@ function getProducts(){
                 const checkOutButton = document.createElement('button')
                 checkOutButton.className = "btn btn-success"
                 checkOutButton.textContent = 'Checkout items'
+                checkOutButton.className = "btn btn-success"
                 checkOutButton.addEventListener('click',()=>{
                     showModalHandler(data)
                 })
@@ -31,6 +32,7 @@ function getProducts(){
                 clearButton.className = "btn btn-danger"
                 clearButton.id = 'clear'
                 clearButton.textContent = 'Clear items'
+                clearButton.className = "btn btn-danger"
                 clearButton.addEventListener('click',()=>{
                     fetch('/users/me/clearCart',{
                         method: 'POST',
@@ -79,7 +81,7 @@ function showModalHandler(products) {
 
                     const modalConfirmAction = document.createElement('button');
                     modalConfirmAction.textContent = 'Ok';
-                    modalConfirmAction.className = 'btn';
+                    modalConfirmAction.className = 'btn btn-success';
                     modalConfirmAction.addEventListener('click',closeModalHandler)
                     modal.append(modalFailure)
                     modal.append(modalConfirmAction)
@@ -94,7 +96,7 @@ function showModalHandler(products) {
                 if(i == products.length -1){
                     const modalConfirmAction = document.createElement('button');
                     modalConfirmAction.textContent = 'Ok';
-                    modalConfirmAction.className = 'btn';
+                    modalConfirmAction.className = 'btn btn-success';
                     modalConfirmAction.addEventListener('click',closeModalHandler)
                     modal.append(modalConfirmAction)
                     const clearButton = document.querySelector('#clear')
@@ -109,7 +111,7 @@ function showModalHandler(products) {
     }
   
     modal = document.createElement('div');
-    modal.className = 'modal';
+    modal.className = 'modalUC';
   
     const modalText = document.createElement('p');
     modalText.textContent = 'Are you sure you want to checkout these items?';
@@ -123,12 +125,12 @@ function showModalHandler(products) {
   
     const modalCancelAction = document.createElement('button');
     modalCancelAction.textContent = 'Cancel';
-    modalCancelAction.className = 'btn btn--alt';
+    modalCancelAction.className = 'btn btn-danger btn--alt';
     modalCancelAction.addEventListener('click', closeModalHandler);
   
     const modalConfirmAction = document.createElement('button');
     modalConfirmAction.textContent = 'Confirm';
-    modalConfirmAction.className = 'btn';
+    modalConfirmAction.className = 'btn btn-success';
     modalConfirmAction.addEventListener('click', ()=>{
            // buyProducts(products)
            var productData = price
@@ -152,7 +154,7 @@ function showModalHandler(products) {
     document.body.append(backdrop);
   }
 function showProduct(product){
-    const body = document.querySelector('.main-content')
+    const cartContainer = document.querySelector('.cart-container')
     productDiv = document.createElement('div')
     productDiv.className = 'product'
     
@@ -171,7 +173,7 @@ function showProduct(product){
     productDiv.append(productName)
     productDiv.append(productPrice)
 
-    body.appendChild(productDiv)
+    cartContainer.appendChild(productDiv)
 }
 
 function getAuthToken() {
