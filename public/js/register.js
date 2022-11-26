@@ -22,9 +22,25 @@ registerForm.addEventListener('submit',(e)=>{
         }).then((response)=>{
             response.json().then((data)=>{
                 if(!data.user){
+                    let nameError = document.querySelector('#nameError')
+                    let emailError = document.querySelector('#emailError')
+                    let passwordError = document.querySelector('#passwordError')
+                    if(data.errors.hasOwnProperty('name')){
+                        nameError.textContent = data.errors.name.message;
+                    }
+                    if(data.errors.hasOwnProperty('email')){
+                        emailError.textContent = data.errors.email.message;
+                    }
+                    if(data.errors.hasOwnProperty('password')){
+                        passwordError.textContent = data.errors.password.message;
+                    }
                     successMessage.textContent = 'Invalid Registration.'
+                    successMessage.className = "alert alert-danger"
                 }
-                successMessage.textContent = 'Hello ' + data.user.name + 'You are successfully registered.'
+                else{
+                    successMessage.textContent = 'Registration successful'
+                    successMessage.className = "alert alert-success"
+                }
             })
         })
     }})
