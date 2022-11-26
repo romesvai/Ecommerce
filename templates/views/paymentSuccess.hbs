@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/css/styles.css">
-        <title>Ecommerce</title>
-    </head>
+    {{>head}}
     <body>
-        <div class="main-content">
           {{>header}}
+        <div class="main-content container">
           <h3>Payment Successful</h3>
+          <p>Thank you for buying from our store</p>
+          <a href="/" class="btn btn-primary">Return to HomePage</a>
           <p id="empty-message"></p>
           
 
         </script>
           </div>
           {{>footer}}
-          
+          {{>script}}
     </body>
 </html>

@@ -41,7 +41,7 @@ registerForm.addEventListener('submit',(e)=>{
                     successMessage.className = "alert alert-danger"
                 }
                 else{
-                    successMessage.textContent = 'Hello ' + data.user.name + 'You are successfully registered.'
+                    successMessage.textContent = 'Registration successful'
                     successMessage.className = "alert alert-success"
                 }
             })
