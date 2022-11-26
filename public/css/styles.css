@@ -57,7 +57,7 @@ header{
 h1{
     font-size: 64px;
     margin-bottom: 16px;
-    color: white;
+    /* color: white; */
 }
 
 header a{
@@ -116,7 +116,7 @@ margin-left: 40px;
   text-align: right;
 }
 
-.modal {
+.modalUC {
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
   border-radius: 6px;
   background-color: white;
@@ -150,8 +150,7 @@ margin-left: 40px;
     justify-content: space-between;
 }
 
-
-#user{
+/*  #user{
     font-size: large;
     font-weight: 600;
     color:#333333
@@ -161,16 +160,16 @@ margin-left: 40px;
     font-size: medium;
     font-weight: 600;
     color:#333333
-}
-
-.productName{
-    color:#039fff
-}
-.product-price{
-    color:aqua
-}
+} */
 
 
+/* for header */
+.user-container{
+  background-color: #e3f2fd;
+}
+#user-details{
+  gap: 1rem;
+}
 
 /* for carousel and index page */
 .carousel-item {
@@ -187,7 +186,9 @@ margin-left: 40px;
       right: 0;
       padding-bottom: 50px;
     }
-
+    .hero-header{
+      color: white;
+    }
     .overlay-image {
       background-position: center;
       background-size: cover;
