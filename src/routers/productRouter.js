@@ -22,7 +22,7 @@ router.post('/products/:id/image',admin,upload.single('image'),async (req,res)=>
    res.send({message: 'Successful.'})
     }
     catch(e){
-    res.status(500).send()
+    res.status(500).send({error: 'Product Invalid'})
     }
 
 },(error,req,res,next)=>{
@@ -35,7 +35,7 @@ router.post('/products',admin,async (req,res)=>{
     res.status(201).send(product)
     }
     catch(e){
-        res.status(400).send()
+        res.status(400).send({error: 'Invalid product.'})
     }
 })
 

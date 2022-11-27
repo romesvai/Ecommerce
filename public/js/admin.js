@@ -95,7 +95,7 @@ productForm.addEventListener('submit',(e)=>{
             body: productRequestJSON
         }).then((response)=>{
             response.json().then((data)=>{
-                if(!data.name){
+                if(data.error){
                    return  saveSuccess.textContent = 'Invalid.'
                 }
                 fetch(`/products/${data._id}/image`,{
@@ -112,9 +112,15 @@ productForm.addEventListener('submit',(e)=>{
                         saveSuccess.textContent = 'Failed'
     
                     })
+                }).catch((e)=>{
+                    console.log('Error')
+                    saveSuccess.textContent = "Invalid product"
                 })
             })
         })
+    }
+    else{
+        saveSuccess.textContent = 'Invalid product.'
     }
     
 })

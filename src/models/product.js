@@ -9,7 +9,12 @@ const productSchema = mongoose.Schema(
         },
         price: {
             type: Number,
-            required: true
+            required: true,
+            validate(value){
+                if(value < 0){
+                    throw new Error('Price must be positive.')
+                }
+            }
         },
         image: {
             type: Buffer
